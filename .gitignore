@@ -6,3 +6,6 @@ dist/
 
 # generated from src/config/site.ts by astro.config.ts
 src/styles/_prefix.scss
+.env.backup
+.env.*
+.claude/
