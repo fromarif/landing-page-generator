@@ -1,0 +1,53 @@
+---
+import { cls } from '../scripts/core/names';
+
+interface Props {
+  items: string[];
+  speed?: number;
+  reverse?: boolean;
+  /** Scroll velocity drives the speed and flips direction. Off = constant. */
+  velocity?: boolean;
+}
+const { items, speed = 10, reverse = false, velocity = true } = Astro.props;
+---
+
+<section
+  class={cls('marquee')}
+  data-marquee
+  data-marquee-speed={speed}
+  data-marquee-reverse={reverse ? '' : undefined}
+  data-marquee-velocity={velocity ? undefined : 'off'}
+>
+  <div class={cls('marquee', 'track')}>
+    {items.map((item) => (
+      <span class={cls('marquee', 'item')}>{item}</span>
+    ))}
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../styles/prefix' as *;
+
+  .#{$prefix}-marquee {
+    overflow: hidden;
+    padding: 4rem 0;
+    background: var(--bg);
+    color: var(--fg);
+
+    &__track {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+    }
+
+    &__item {
+      flex: none;
+      padding: 0 2rem;
+      white-space: nowrap;
+      font-size: clamp(2rem, 7vw, 6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+  }
+</style>

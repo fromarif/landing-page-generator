@@ -1,0 +1,62 @@
+---
+import { cls } from '../scripts/core/names';
+
+interface Props {
+  heading: string;
+  inverse?: boolean;
+  jelly?: boolean;
+}
+const { heading, inverse = false, jelly = false } = Astro.props;
+---
+
+<section
+  class:list={[cls('showcase'), { '-inverse': inverse }]}
+  data-cursor={inverse ? '-inverse' : undefined}
+>
+  <h2 class={cls('showcase', 'heading')} data-reveal>{heading}</h2>
+  <div class={cls('showcase', 'grid')} data-jelly={jelly ? '' : undefined}>
+    {Array.from({ length: 4 }).map((_, i) => (
+      <a class={cls('showcase', 'item')} href="#" data-reveal data-cursor-text="View">
+        Project {i + 1}
+      </a>
+    ))}
+  </div>
+</section>
+
+<style lang="scss">
+  @use '../styles/prefix' as *;
+
+  .#{$prefix}-showcase {
+    padding: 8rem 1.5rem;
+    background: var(--bg);
+    color: var(--fg);
+
+    &.-inverse {
+      --bg: #0e0e0e;
+      --fg: #f4f4f4;
+    }
+
+    &__heading {
+      margin: 0 0 3rem;
+      font-size: clamp(2rem, 6vw, 5rem);
+      letter-spacing: -0.02em;
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+    }
+
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 16 / 10;
+      background: color-mix(in srgb, var(--fg) 6%, transparent);
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 1.25rem;
+    }
+  }
+</style>

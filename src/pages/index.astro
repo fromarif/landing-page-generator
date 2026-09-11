@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../sections/Hero.astro';
+import Showcase from '../sections/Showcase.astro';
+import Marquee from '../sections/Marquee.astro';
+import Blob from '../sections/Blob.astro';
+import Sequence from '../sections/Sequence.astro';
+import Lines from '../sections/Lines.astro';
+import Cta from '../sections/Cta.astro';
+---
+
+<BaseLayout title="Studio — Home">
+  <Hero label="Studio" title="We build things that move." />
+  <Showcase heading="Selected work" jelly />
+  <Marquee items={['Motion', 'Design', 'Interaction', 'Craft']} />
+  <Lines heading="Lines that answer to the scroll." />
+  <Sequence heading="Scrubbed frame by frame." preload="loader" />
+  <Blob heading="Motion without the WebGL bill." />
+  <Showcase heading="More work" inverse />
+  <Cta heading="Got something worth moving?" />
+</BaseLayout>

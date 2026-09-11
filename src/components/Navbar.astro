@@ -1,0 +1,41 @@
+---
+import { site } from '../config/site';
+import { cls } from '../scripts/core/names';
+---
+
+<header class={cls('navbar')}>
+  <a href="/" class={cls('navbar', 'brand')}>{site.name}</a>
+  <nav class={cls('navbar', 'nav')}>
+    {site.nav.map((item) => (
+      <a href={item.href}>{item.label}</a>
+    ))}
+  </nav>
+</header>
+
+<style lang="scss">
+  @use '../styles/prefix' as *;
+  .#{$prefix}-navbar {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 800;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    mix-blend-mode: difference;
+    color: #fff;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    &__brand {
+      font-weight: 700;
+    }
+
+    &__nav a {
+      margin-left: 1.5rem;
+    }
+  }
+</style>

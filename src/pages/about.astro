@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../sections/Hero.astro';
+import Prose from '../sections/Prose.astro';
+---
+
+<BaseLayout title="Studio — About">
+  <Hero label="About" title="A small studio with big motion." />
+  <Prose jelly>
+    <p>
+      Navigate between Home and About. The page content swaps, but the cursor
+      and smooth scroll persist across the transition — that is the
+      static-MPA + SPA-feel pattern working.
+    </p>
+  </Prose>
+</BaseLayout>

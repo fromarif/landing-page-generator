@@ -1,0 +1,84 @@
+---
+import { cls } from '../scripts/core/names';
+
+interface Props {
+  heading: string;
+  src?: string;
+  tint?: string;
+}
+const { heading, src = '/video/blob.mp4', tint = '#ff4d00' } = Astro.props;
+---
+
+<section class={cls('blob')} data-cursor="-inverse">
+  <div class={cls('blob', 'media')} style={`--tint: ${tint}`}>
+    <video
+      class={cls('blob', 'video')}
+      src={src}
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      aria-hidden="true"
+    ></video>
+    <div class={cls('blob', 'tint')}></div>
+  </div>
+
+  <h2 class={cls('blob', 'heading')} data-split="lines">{heading}</h2>
+</section>
+
+<style lang="scss">
+  @use '../styles/prefix' as *;
+
+  .#{$prefix}-blob {
+    --bg: #0e0e0e;
+    --fg: #f4f4f4;
+
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 90vh;
+    padding: 8rem 1.5rem;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--fg);
+
+    &__media {
+      position: absolute;
+      inset: 0;
+      isolation: isolate;
+      background: var(--bg);
+      pointer-events: none;
+    }
+
+    &__video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: screen;
+    }
+
+    &__tint {
+      position: absolute;
+      inset: 0;
+      background: var(--tint);
+      mix-blend-mode: multiply;
+    }
+
+    &__heading {
+      position: relative;
+      margin: 0;
+      max-width: 18ch;
+      text-align: center;
+      font-size: clamp(2rem, 7vw, 6rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .#{$prefix}-blob__video {
+      opacity: 0.6;
+    }
+  }
+</style>
