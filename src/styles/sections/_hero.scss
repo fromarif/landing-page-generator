@@ -1,0 +1,25 @@
+@use '../prefix' as *;
+
+.#{$prefix}-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem;
+  background: var(--bg);
+  color: var(--fg);
+
+  &__label {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    opacity: 0.6;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: clamp(3rem, 12vw, 11rem);
+    line-height: 0.95;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+}

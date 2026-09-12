@@ -21,35 +21,3 @@ const { heading, color, lines, bend } = Astro.props;
   <canvas class={cls('lines', 'canvas')} aria-hidden="true"></canvas>
   <h2 class={cls('lines', 'heading')} data-split="lines">{heading}</h2>
 </section>
-
-<style lang="scss">
-  @use '../styles/prefix' as *;
-
-  .#{$prefix}-lines {
-    position: relative;
-    display: grid;
-    place-items: center;
-    min-height: 80vh;
-    padding: 8rem 1.5rem;
-    overflow: hidden;
-    background: var(--bg);
-    color: var(--fg);
-
-    &__canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    &__heading {
-      position: relative;
-      margin: 0;
-      max-width: 14ch;
-      text-align: center;
-      font-size: clamp(2rem, 6vw, 5rem);
-      line-height: 1;
-      letter-spacing: -0.03em;
-    }
-  }
-</style>

@@ -1,0 +1,33 @@
+// -l* hides from a breakpoint up, -g* hides below it. See docs/responsive.md.
+@use 'breakpoints' as *;
+
+$hide-from: (
+  sm: $bp-sm,
+  md: $bp-md,
+  lg: $bp-lg,
+  xl: $bp-xl,
+);
+
+$hide-below: (
+  xs: $bp-sm,
+  sm: $bp-md,
+  md: $bp-lg,
+  lg: $bp-xl,
+  xl: $bp-xxl,
+);
+
+@each $name, $bp in $hide-from {
+  @media (min-width: $bp) {
+    .-l#{$name} {
+      display: none;
+    }
+  }
+}
+
+@each $name, $bp in $hide-below {
+  @media (max-width: $bp - 1px) {
+    .-g#{$name} {
+      display: none;
+    }
+  }
+}

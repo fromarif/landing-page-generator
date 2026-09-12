@@ -26,16 +26,16 @@ Business intent (informs your judgment calls):
 - **Cursor** — Cuberto's `mouse-follower`, persistent singleton. See
   [`docs/cursor.md`](docs/cursor.md).
 - **Astro `<ClientRouter />`** — SPA-style page transitions over the static MPA.
-- **SCSS** — component-scoped styles + a small global token layer.
+- **SCSS** — one global stylesheet assembled from partials in `src/styles/`; no `<style>` blocks in `.astro` files.
 
 ## Commands
 
 ```bash
-npm install        # verified: resolves clean on Node 24 / npm 11
-npm run dev        # runs at http://localhost:4321 (also .claude/launch.json)
-npm run build      # outputs static site to dist/ as folder/index.html per route
-npm run preview
-npm run check      # typecheck .ts AND .astro frontmatter — run before calling work done
+bun install        # bun.lock is the lockfile; npm is no longer used
+bun run dev        # runs at http://localhost:4321 (also .claude/launch.json)
+bun run build      # outputs static site to dist/ as folder/index.html per route
+bun run preview
+bun run check      # typecheck .ts AND .astro frontmatter — run before calling work done
 ```
 
 ## Core principle: engine vs skin
@@ -45,7 +45,7 @@ Keep a hard line between the two. This is what makes the scaffold reusable.
 | Layer | Files | Change per project? |
 |---|---|---|
 | **Engine** (reusable) | `src/scripts/core/*`, `src/scripts/app.ts`, `astro.config.ts` | Rarely — treat as stable |
-| **Skin / content** | `src/config/site.ts`, `src/styles/_tokens.scss`, `src/sections/*`, `src/pages/*` | Every project |
+| **Skin / content** | `src/config/site.ts`, `src/styles/*`, `src/sections/*`, `src/pages/*` | Every project |
 
 When adding features, ask: is this reusable machinery (→ `core/` or a `modules/`
 file) or project-specific content (→ `sections/`, `pages/`, config)? Do not leak
@@ -100,16 +100,21 @@ Two non-obvious handlers run on `astro:after-swap` — `restoreHtmlClasses()` an
   vocabulary is MouseFollower's. Links and buttons need nothing — they get
   `-pointer` automatically. See [`docs/cursor.md`](docs/cursor.md).
 - **Theme flip:** the Cuberto `-inverse` idea is done by overriding `--bg`/`--fg`
-  locally on a section (see `sections/Showcase.astro`), not via a separate stylesheet.
+  locally on a section (see `styles/sections/_showcase.scss`), not via a separate stylesheet.
 - **Engine classes come from ONE knob**: `site.prefix` in `src/config/site.ts`.
   It drives markup + JS (`cls()` / `sel()` in `scripts/core/names.ts`) and SCSS
   (`$prefix` from the generated `src/styles/_prefix.scss`). Never write an engine
-  class as a string literal. Engine style blocks must be `<style lang="scss">` and
-  open with `@use '../styles/prefix' as *;`.
+  class as a string literal.
   **Do not replace the generated partial with `additionalData` — it breaks silently.
   See [`docs/prefix.md`](docs/prefix.md) for why, and what was already tried.**
-- **Sections use the prefix too.** `cls('hero', 'title')` → `fa-hero__title`, and
-  their `<style lang="scss">` opens with `@use '../styles/prefix' as *;`. One
+- **Styles live in `src/styles/`, never in a `.astro` `<style>` block.** One partial
+  per component (`styles/components/_navbar.scss`) or section
+  (`styles/sections/_hero.scss`), each opening with `@use '../prefix' as *;` and
+  registered in `main.scss`. This is what lets `@extend` reach across components —
+  Astro compiles each `<style>` block as its own unit, so a scoped block can never
+  share a base class with another. See [`docs/spacing.md`](docs/spacing.md).
+  Scoping is not lost: every class is already prefixed via `cls()`.
+- **Sections use the prefix too.** `cls('hero', 'title')` → `fa-hero__title`. One
   vocabulary for the whole DOM — engine and skin alike.
 - **Modifiers stay unprefixed**: `-inverse`, `-pointer`, `-text`. They are states on
   an already-prefixed block, and it matches MouseFollower's own convention.
@@ -182,7 +187,7 @@ that work is per-project and lives in `sections/`.
 
 ## Guardrails (do NOT)
 
-- Do not report work as done without running `npm run check`. Plain `tsc` cannot
+- Do not report work as done without running `bun run check`. Plain `tsc` cannot
   read `.astro` frontmatter; this catches what it misses. It found two real type
   errors that had been sitting in the scaffold since day one.
 - Do not fill code files with explanatory comments. Keep them near-zero; a one-line

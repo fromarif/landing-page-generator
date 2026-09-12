@@ -12,6 +12,8 @@ the code. Where something is unverified, it says so.
 | [lifecycle.md](lifecycle.md) | touching `app.ts`, or adding any module that builds DOM |
 | [swap-gotchas.md](swap-gotchas.md) | removing anything that runs on `astro:after-swap` |
 | [prefix.md](prefix.md) | changing how engine class names are produced |
+| [spacing.md](spacing.md) | adding padding, widths or type sizes to a section |
+| [responsive.md](responsive.md) | adding a breakpoint, or hiding something per screen size |
 | [cursor.md](cursor.md) | touching the cursor, or adding `data-cursor` hooks |
 | [marquee.md](marquee.md) | adding any module that owns observers or timelines |
 | [blob.md](blob.md) | touching the video knockout, or swapping its asset |

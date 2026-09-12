@@ -1,0 +1,22 @@
+@use '../prefix' as *;
+
+.#{$prefix}-prose {
+  min-height: 60vh;
+  padding: 8rem 1.5rem;
+  background: var(--bg);
+  color: var(--fg);
+
+  &__body {
+    max-width: 40ch;
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+
+  &__body p {
+    margin: 0 0 1.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

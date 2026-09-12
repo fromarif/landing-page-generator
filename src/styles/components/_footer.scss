@@ -1,0 +1,12 @@
+@use '../prefix' as *;
+
+.#{$prefix}-footer {
+  padding: 4rem 1.5rem;
+  background: var(--bg);
+  color: var(--fg);
+  border-top: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+
+  p {
+    margin: 0;
+  }
+}

@@ -1,0 +1,7 @@
+// Media queries cannot read CSS custom properties — breakpoints stay SCSS.
+// See docs/responsive.md.
+$bp-sm: 768px;
+$bp-md: 1024px;
+$bp-lg: 1200px;
+$bp-xl: 1600px;
+$bp-xxl: 1920px;

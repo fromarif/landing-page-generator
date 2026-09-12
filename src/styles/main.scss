@@ -1,3 +1,20 @@
 @use 'tokens';
 @use 'base';
+@use 'layout';
 @use 'cursor';
+
+@use 'components/loader';
+@use 'components/navbar';
+@use 'components/footer';
+
+@use 'sections/hero';
+@use 'sections/showcase';
+@use 'sections/marquee';
+@use 'sections/lines';
+@use 'sections/sequence';
+@use 'sections/blob';
+@use 'sections/prose';
+@use 'sections/cta';
+
+// Last: utilities win ties on source order.
+@use 'visibility';

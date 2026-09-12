@@ -1,0 +1,33 @@
+// Base boxes every component extends. See docs/spacing.md.
+@use 'prefix' as *;
+@use 'breakpoints' as *;
+
+.#{$prefix}-container {
+  padding-inline: var(--gutter);
+
+  @media (min-width: $bp-sm) {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter-wide);
+  }
+
+  &.-sm {
+    padding-inline: var(--gutter-tight);
+
+    @media (min-width: $bp-sm) {
+      padding-inline: var(--gutter-tight-wide);
+    }
+  }
+
+  &.-lg {
+    padding-inline: var(--gutter-loose);
+
+    @media (min-width: $bp-sm) {
+      padding-inline: var(--gutter-loose-wide);
+    }
+  }
+}
+
+.#{$prefix}-section {
+  padding-block: var(--section-y);
+}
